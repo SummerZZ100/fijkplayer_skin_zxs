@@ -13,7 +13,7 @@ import './slider.dart' show NewFijkSliderColors, NewFijkSlider;
 double speed = 1.0;
 bool lockStuff = false;
 bool hideLockStuff = false;
-final double barHeight = 50.0;
+final double barHeight = 44.0;
 final double barFillingHeight =
     MediaQueryData.fromWindow(window).padding.top + barHeight;
 final double barGap = barFillingHeight - barHeight;
@@ -28,6 +28,7 @@ abstract class ShowConfigAbs {
   late bool bottomPro;
   late bool stateAuto;
   late bool isAutoPlay;
+  late bool buyLock;//购买锁
 }
 
 class WithPlayerChangeSource {}
@@ -219,6 +220,30 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
     });
   }
 
+  /*
+  * 购买锁标志
+  * */
+  Widget _buildBuyLockWidget(){
+    return Container(
+      child: AnimatedOpacity(
+        opacity: _hideLockStuff ? 0.0 : 0.7,
+        duration: Duration(milliseconds: 400),
+        child: Align(
+          alignment: Alignment.centerRight,
+          child: Padding(
+            padding: EdgeInsets.only(
+              right: 20,
+              top: showConfig.stateAuto && !player.value.fullScreen
+                  ? barGap
+                  : 0,
+            ),
+            child: Icon(Icons.lock_outline_rounded,color: Colors.white,),
+          ),
+        ),
+      ),
+    );
+  }
+
   // 锁 组件
   Widget _buidLockStateDetctor() {
     return GestureDetector(
@@ -261,10 +286,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
       height: barHeight,
       alignment: Alignment.centerLeft,
       child: IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(Icons.arrow_back_ios),
         padding: EdgeInsets.only(
-          left: 10.0,
-          right: 10.0,
+          left: 15.0,
+          right: 15.0,
         ),
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
@@ -620,6 +645,10 @@ class _CustomFijkPanelState extends State<CustomFijkPanel>
           ),
         );
       }
+    }
+
+    if(showConfig.buyLock == true){
+      ws.add(_buildBuyLockWidget());
     }
 
     // return WillPopScope(
@@ -1267,10 +1296,10 @@ class _buildGestureDetectorState extends State<_buildGestureDetector> {
   // 返回按钮
   Widget _buildTopBackBtn() {
     return IconButton(
-      icon: Icon(Icons.arrow_back),
+      icon: Icon(Icons.arrow_back_ios),
       padding: EdgeInsets.only(
-        left: 10.0,
-        right: 10.0,
+        left: 15.0,
+        right: 15.0,
       ),
       splashColor: Colors.transparent,
       highlightColor: Colors.transparent,
