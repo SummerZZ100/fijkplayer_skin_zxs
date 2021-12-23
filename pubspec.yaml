@@ -1,7 +1,7 @@
 name: fijkplayer_skin
 description: fijkplayer the skin
 version: 2.2.8
-homepage: https://github.com/abcd498936590/fijkplayer_skin
+homepage: https://github.com/SummerZZ100/fijkplayer_skin_zxs
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
